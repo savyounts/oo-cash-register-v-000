@@ -1,13 +1,14 @@
 require 'pry'
 
 class CashRegister
-  attr_accessor :total, :discount
+  attr_accessor :total, :discount, :items
   
-  @@items = []
+ 
   
   def initialize(discount = nil)
     @discount = discount
     @total = 0 
+    @items = []
   end 
   
  
@@ -17,7 +18,7 @@ class CashRegister
   end 
   
   def add_item(title, price, quantity = 1)
-    @@items << title
+    @items << title
     price_increase = price * quantity
     @total = @total + price_increase
     @total 
@@ -27,14 +28,14 @@ class CashRegister
     if self.discount != nil 
       discount_percentage = 1 - self.discount.to_f/100
       @total = @total*discount_percentage
-      "After the discount, the total comes to $#{@total}"
+      "After the discount, the total comes to $#{@total.to_i}."
     else
      "There is no discount to apply."
     end
   end 
  
   def items
-    @@items
+    self.items
   end 
   
   def void_last_transaction
